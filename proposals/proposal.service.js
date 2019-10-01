@@ -13,13 +13,13 @@ async function getById(id) {
 }
 
 async function create(proposalParam) {
+    console.log("dbproposal")
     // validate
-    if (await Proposal.findOne({ ID: proposalParam.proposalID })) {
-        throw 'Proposal"' + proposalParam.proposalID + '" has already been submitted';
+    if (await Proposal.findOne({ dbContractReferenceNumber: proposalParam.dbContractReferenceNumber })) {
+        throw 'Proposal"' + proposalParam.dbContractReferenceNumber + '" has already been submitted';
     }
 
     const proposal = new Proposal(proposalParam);
 
-    // save user
     await proposal.save();
 }

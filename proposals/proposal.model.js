@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    dbproposalID: { type: String, unique: true, required: true },
-    dbmemberID: { type: String, required: true },
+    dbContractReferenceNumber: { type: String, unique: true, required: true },
     dbRequestorEmployeeID: { type: String, required: true },
     dbRequestorFullName: { type: String, required: true },
     dbRequestorEmail: { type: String, required: true },
@@ -11,9 +10,8 @@ const schema = new Schema({
     dbLegalEntity: { type: String, required: true },
     dbBusinessFunctiondrivingrequirementfortheBusinessCase: { type: String, required: true },
     dbRegion: { type: String, required: true },
-    dbDateofRequest: { type: String, required: true },
+    dbDateofRequest: { type: String, required: true, value: Date.now() },
     dbSpendType: { type: String, required: true },
-    dbContractReferenceNumber: { type: String, required: true },
     dbITCommodityCategory: { type: String, required: true },
     dbProjectorInitiativeTitle: { type: String, required: true },
     dbSpendTaxonomy: { type: String, required: true },
@@ -61,6 +59,7 @@ const schema = new Schema({
     dbYear5Depreciation: { type: String, required: true },
     dbYear6OpEx: { type: String, required: true },
     dbYear6Depreciation: { type: String, required: true },
+    dbcreatedDate: { type: Date, required: true, default: Date.now }
 });
 
 schema.set('toJSON', { virtuals: true });
