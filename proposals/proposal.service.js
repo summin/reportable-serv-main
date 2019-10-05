@@ -5,14 +5,19 @@ const db = require('_helpers/db');
 const Proposal = db.Proposal;
 
 module.exports = {
-    create
+    submit,
+    get
 };
 
-async function getById(id) {
-    return await User.findById(id).select('-hash');
+// GET
+
+async function get(attr) {
+    return await Proposal.find( { dbcreatedDate: { $gt: new Date('2019-10-03T13:24:00') } } );
 }
 
-async function create(proposalParam) {
+// SUBMIT
+
+async function submit(proposalParam) {
 
     if (await Proposal.findOne({ dbContractReferenceNumber: proposalParam.dbContractReferenceNumber })) {
         throw 'Proposal"' + proposalParam.dbContractReferenceNumber + '" has already been submitted';

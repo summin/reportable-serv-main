@@ -3,23 +3,29 @@ const router = express.Router();
 const proposalService = require('./proposal.service');
 
 // routes
-router.post('/:id', getById);
-router.put('/submit', register);
+router.get('/get', get);
+router.put('/submit', submit);
 router.delete('/delete', _delete);
 
 module.exports = router;
 
-function getById(req, res, next) {
-    proposalService.getById(req.params.id)
-        .then(user => user ? res.json(user) : res.sendStatus(404))
+// GET
+
+function get(req, res, next) {
+    proposalService.get(req.params.attr)
+        .then((data) => res.json(data))
         .catch(err => next(err));
 }
 
-function register(req, res, next) {
-    proposalService.create(req.body)
+// SUBMIT
+
+function submit(req, res, next) {
+    proposalService.submit(req.body)
         .then(() => res.json({}))
         .catch(err => next(err));
 }
+
+// DELETE
 
 function _delete(req, res, next) {
     proposalService.delete(req.params.id)
