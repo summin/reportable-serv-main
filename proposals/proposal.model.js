@@ -59,6 +59,7 @@ const schema = new Schema({
     dbYear5Depreciation: { type: String, required: true },
     dbYear6OpEx: { type: String, required: true },
     dbYear6Depreciation: { type: String, required: true },
+    dbYear6Depreciation: { type: String, required: true },
     dbcreatedDate: { type: Date, required: true, default: Date.now }
 });
 
