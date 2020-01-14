@@ -1,29 +1,40 @@
-﻿const config = require('config.json');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const db = require('_helpers/db');
+﻿const db = require('_helpers/db');
 const Contract = db.Contract;
 
 module.exports = {
     submit,
-    get
+    getByID,
+    getAll,
+    getByAttr,
+    modify,
+    _delete
 };
 
-// GET
-
-async function get(attr) {
-    return await Contract.find();
+async function submit(contractParam) {
+    const contract = new Contract(contractParam);
+    await contract.save()
 }
 
-// SUBMIT
+async function getByID(id) {
+    return await Contract.find({_id: id})
+}
 
-async function submit(contractParam) {
+async function getAll() {
+    return await Contract.find().sort({ createdDate: 'desc' })
+}
 
-    if (await Contract.findOne({ dbContractReferenceNumber: contractParam.dbContractReferenceNumber })) {
-        throw 'Proposal"' + contractParam.dbContractReferenceNumber + '" has already been submitted';
-    }
+async function getByAttr(attr) {
+    return await Contract.find({[attr.field]: attr.value})
+}
 
-    const contract = new Contract(contractParam);
 
+async function modify(id, contractParam) {
+    const contract = await Contract.findById(id);
+    if (!contract ) throw 'Contract not found';
+    Object.assign(contract, contractParam);
     await contract.save();
+}
+
+async function _delete(attr) {
+    return await Contract.find({ dbcreatedDate: { $gt: new Date('2019-10-03T13:24:00') } });
 }

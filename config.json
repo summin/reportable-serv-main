@@ -1,4 +1,4 @@
 ﻿{
-    "connectionString": "mongodb://localhost/reportable-serv",
+    "connectionString": "mongodb://root:example@localhost:27018",
     "secret": "secret"
 }
